@@ -59,3 +59,10 @@ venv/
 .venv/
 *.swp
 *.tmp
+
+# Ignore all processed folders
+processed/*
+
+# BUT allow samples
+!processed/samples/
+!processed/samples/*
