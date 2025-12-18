@@ -1,0 +1,35 @@
+# ------------------------
+# Python cache
+# ------------------------
+__pycache__/
+*.pyc
+*.pyo
+
+# ------------------------
+# Environment / secrets
+# ------------------------
+.env
+
+# ------------------------
+# Large model files (DO NOT PUSH)
+# ------------------------
+*.pt
+*.h5
+*.keras
+
+# ------------------------
+# Output folder (keep folder, ignore files)
+# ------------------------
+output/*
+!output/.gitkeep
+
+# ------------------------
+# OS / Editor files
+# ------------------------
+.DS_Store
+Thumbs.db
+
+# ------------------------
+# Colab / Jupyter
+# ------------------------
+.ipynb_checkpoints/
