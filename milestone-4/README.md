@@ -119,11 +119,14 @@ drive.mount('/content/drive')
 ⚠️ Notes
 --
 Ensure models/pcb_model.keras exists 
+
 sample_images/template & sample_images/test must contain images
+
 output/ folder will auto-create for storing results
 
 
 👩‍💻 Author
 --
 Akalya S.
+
 SASTRA University
