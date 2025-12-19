@@ -1,37 +1,40 @@
 
 🧪 PCB Defect Detection and Classification System – Complete Project Documentation
+--
 Project Statement
-
+-
 The objective of this project is to develop an automated PCB defect detection and classification system using image processing and deep learning techniques.
 
 The system integrates:
+-
+1.Template-based image subtraction for defect highlighting
 
-Template-based image subtraction for defect highlighting
+2.Contour extraction for ROI detection
 
-Contour extraction for ROI detection
+3.CNN-based classification for defect labeling
 
-CNN-based classification for defect labeling
-
-A Streamlit-based frontend enables users to upload PCB images, view annotated results, and export defect logs (CSV) and annotated images (JPG) for documentation and reporting.
+4.A Streamlit-based frontend enables users to upload PCB images, view annotated results, and export defect logs (CSV) and annotated images (JPG) for documentation and reporting.
 
 Project Objectives
+-
 
 🔹 Detect and localize PCB defects accurately
 
 🔹 Classify defects into six predefined categories:
 
-Missing Hole 🕳️
+               1.Missing Hole 🕳️
 
-Mouse Bite 🐭
+               2.Mouse Bite 🐭
 
-Open Circuit ⚡
+               3.Open Circuit ⚡
 
-Short 🔗
+               4.Short 🔗
 
-Spur 🌱
+               5.Spur 🌱
 
-Spurious Copper 🟦
+               6.Spurious Copper 🟦
 
+               
 🔹 Train a robust CNN model (EfficientNet) with high accuracy
 
 🔹 Develop a user-friendly frontend for image upload and visualization
@@ -41,22 +44,28 @@ Spurious Copper 🟦
 🔹 Enable export of annotated images, defect logs, and reports
 
 Dataset
+-
 
-Source: DeepPCB dataset
+Source:  
+- 
+     DeepPCB dataset
 
-Structure: Paired template and test images, with annotations for defects
+Structure: 
+-
+      Paired template and test images, with annotations for defects
 
 Processing:
+-
+              1.Image alignment using ORB + RANSAC
 
-Image alignment using ORB + RANSAC
+              2.Image subtraction for defect highlighting
 
-Image subtraction for defect highlighting
+              3.Thresholding with Otsu’s method
 
-Thresholding with Otsu’s method
-
-ROI extraction for CNN input
+              4.ROI extraction for CNN input
 
 Folder Structure:
+-
 
 PCB_DATASET/
 ├── train/
@@ -81,46 +90,53 @@ PCB_DATASET/
 │   └── samples/
 └── docs/
 
+
 Methodology
+-
+
 1️⃣ Image Preprocessing
+-
+       Convert images to grayscale and normalize
 
-Convert images to grayscale and normalize
+       Align test images with template using ORB feature matching + RANSAC
 
-Align test images with template using ORB feature matching + RANSAC
+       Apply Gaussian blur to reduce noise
 
-Apply Gaussian blur to reduce noise
-
-Perform image subtraction to highlight defect regions
+       Perform image subtraction to highlight defect regions
+       
 
 2️⃣ Contour Detection & ROI Extraction
+-
+      Detect defect contours using OpenCV
 
-Detect defect contours using OpenCV
+      Crop Regions of Interest (ROI) for classification
 
-Crop Regions of Interest (ROI) for classification
-
-Label and save ROIs for training the CNN
+      Label and save ROIs for training the CNN
+      
 
 3️⃣ CNN-based Classification
+-
+       Backbone: EfficientNetB0 (pretrained on ImageNet)
 
-Backbone: EfficientNetB0 (pretrained on ImageNet)
+       Input: 128x128 pixels RGB
 
-Input: 128x128 pixels RGB
+       Loss: Categorical Cross-Entropy
 
-Loss: Categorical Cross-Entropy
+       Optimizer: Adam
 
-Optimizer: Adam
+       Training:
 
-Training:
+            1.Freeze EfficientNet base
 
-Freeze EfficientNet base
+            2.Train custom classification head
 
-Train custom classification head
+            3.Runtime data augmentation (rotation, flips, zooms)
 
-Runtime data augmentation (rotation, flips, zooms)
-
-Output: Defect type + confidence score
+      Output: Defect type + confidence score
+      
 
 4️⃣ Backend Pipeline
+-
 
 Modular Python functions handle:
 
@@ -132,12 +148,13 @@ Model inference
 
 Returns annotated images and defect logs
 
-5️⃣ Frontend UI
 
+5️⃣ Frontend UI
+- 
 Built with Streamlit
 
 Features:
-
+-
 Image upload for template & test PCBs
 
 Annotated visualization of defects
@@ -146,90 +163,110 @@ Adjustable confidence threshold
 
 Download annotated images & CSV logs
 
-Project Milestones
-Milestone 1: Dataset Preparation & CV Pipeline
 
+Project Milestones
+-
+
+Milestone 1: Dataset Preparation & CV Pipeline
+-
 Dataset alignment, subtraction, thresholding, ROI extraction
 
 Deliverables: Processed images, defect masks, ROI crops
-
+-
 Metrics: Alignment accuracy 100%, defect extraction 3–12 per image
+-
 
 Milestone 2: Model Training & Evaluation
-
+-
 CNN training with EfficientNet, validation & confusion matrix
 
 Deliverables: Trained model, accuracy metrics (96% validation)
-
+-
 Metrics: High precision & recall, minimal misclassification
+-
 
 Milestone 3: Web App & System Integration
-
+-
 Streamlit frontend + modular backend pipeline
 
 Deliverables: Interactive app with defect visualization
-
+-
 Metrics: Responsive UI, accurate defect detection, export-ready
+-
 
 Milestone 4: Finalization & Delivery
-
+-
 Export results, optimize processing, final documentation
 
 Deliverables: Final web app, annotated images, CSV logs, PDF report
-
+-
 Metrics: Fully functional system, ready for demonstration
+-
 
 Evaluation Metrics
-Metric	Description	Target
-Detection Accuracy ✅	Correctly detected defects	≥95%
-Classification Accuracy 🎯	Correct defect type prediction	≥95%
-ROI Precision 📐	Bounding box coverage	High
-Processing Time ⏱️	Time per image	≤3s
-Export Quality 💾	Correct image & CSV generation	100%
+-
+
+| Metric                     | Description                    | Target |
+| -------------------------- | ------------------------------ | ------ |
+| Detection Accuracy ✅       | Correctly detected defects     | ≥95%   |
+| Classification Accuracy 🎯 | Correct defect type prediction | ≥95%   |
+| ROI Precision 📐           | Bounding box coverage          | High   |
+| Processing Time ⏱️         | Time per image                 | ≤3s    |
+| Export Quality 💾          | Correct image & CSV generation | 100%   |
+
 Tech Stack
-Area	Tools / Libraries
-Image Processing 🖼️	OpenCV, Numpy
-Deep Learning 🤖	TensorFlow, Keras, PyTorch
-Dataset 📂	DeepPCB
-Frontend 🌐	Streamlit
-Backend 🛠️	Python, Modular Functions
-Evaluation 📊	Accuracy, Confusion Matrix
-Export 📦	CSV, Annotated Image, PDF
+-
+
+| Area                   | Tools / Libraries          |
+| --------------------   | -------------------------- |
+| Image Processing 🖼️   | OpenCV, Numpy              |
+| Deep Learning 🤖      | TensorFlow, Keras, PyTorch |
+| Dataset 📂            | DeepPCB                    |
+| Frontend 🌐           | Streamlit                  |
+| Backend 🛠️            | Python, Modular Functions  |
+| Evaluation 📊         | Accuracy, Confusion Matrix |
+| Export 📦             | CSV, Annotated Image, PDF  |
+
+
+
 Project Outputs
+-
+1.Annotated PCB images with bounding boxes
 
-Annotated PCB images with bounding boxes
+2.CSV logs of defects (type & confidence)
 
-CSV logs of defects (type & confidence)
+3.Visual reports and PDF export (optional)
 
-Visual reports and PDF export (optional)
+4.Trained EfficientNet CNN model
 
-Trained EfficientNet CNN model
+5.Streamlit web application for inspection
 
-Streamlit web application for inspection
 
 Usage Guide
-
-Mount Google Drive (for Colab):
+-
+1.Mount Google Drive (for Colab):
 
 from google.colab import drive
 drive.mount('/content/drive')
 
 
-Install dependencies:
+2.Install dependencies:
 
 !pip install streamlit opencv-python-headless tensorflow pillow pandas
 
 
-Run Streamlit app:
+3.Run Streamlit app:
 
 !streamlit run /content/drive/MyDrive/Akalya_PCB/milestone-4/app.py
 
 
-Upload PCB image, adjust confidence, run inspection
+4.Upload PCB image, adjust confidence, run inspection
 
-View annotated output and download CSV/image
+5.View annotated output and download CSV/image
+
 
 Future Enhancements
+-
 
 Real-time PCB inspection using camera input
 
@@ -239,13 +276,17 @@ Semi-supervised learning for unannotated defects
 
 Expanded defect categories and multi-board inspection
 
+
 Author
+-
 
 Akalya S. – SASTRA University
 
 PCB Defect Detection & Classification System – Full Project (Milestone 1–4)
 
+
 Highlights
+-
 
 Transfer learning using EfficientNet 🧠
 
@@ -256,6 +297,9 @@ Modular backend + interactive frontend 🖥️
 Exportable CSV and annotated images for professional reporting 💾
 
 Validation accuracy: 96% across six defect classes ✅
+
+Summary:
+-
 
 This documentation combines:
 
