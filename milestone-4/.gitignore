@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment
+.env
+*.env
+
+# Models
+*.keras
+*.h5
+*.pt
+
+# Outputs / Logs
+output/
+*.log
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Colab
+*.ipynb_checkpoints
