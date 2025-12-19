@@ -113,7 +113,9 @@ Use Cloudflare / Colab tunnel to access the app in browser
 📊 Output Generated
 -
 1.Annotated PCB images with defect markings
+
 2.Defect log table (type & confidence)
+
 3.Downloadable PCB Inspection Report (PDF)
 
 All outputs are saved inside:
@@ -131,7 +133,10 @@ output/
 📝 Notes for Evaluation 
 -
 1.Backend currently supports placeholder inference
+
 2.Architecture is modular and production-ready
+
 3.Trained EfficientNet model can be plugged in easily
+
 4.Designed for real-world PCB Quality Assurance
 
