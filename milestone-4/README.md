@@ -62,7 +62,6 @@ milestone-4/
 
 ### Module 4: Finalization & Delivery
 
-**Duration:** Weeks 7–8  
 **Tasks:**
 - 🖥️ Integrate modules into final Streamlit app  
 - 📥 Add export feature for images & defect logs  
@@ -98,10 +97,10 @@ drive.mount('/content/drive')
 3️⃣ Run the Streamlit app:
 !streamlit run /content/drive/MyDrive/Akalya_PCB/milestone-4/app.py
 
----
+
 
 ##📝 Usage Guide :
-
+---
 1.Upload a PCB image via the sidebar
 
 2.Adjust confidence threshold (default 50%)
@@ -118,12 +117,12 @@ drive.mount('/content/drive')
 
 
 ##⚠️ Notes
-
+--
 Ensure models/pcb_model.keras exists sample_images/template & sample_images/test must contain images
 output/ folder will auto-create for storing results
 
---
-##👩‍💻 Author
 
+##👩‍💻 Author
+--
 Akalya S.
 SASTRA University
