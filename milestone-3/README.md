@@ -119,8 +119,7 @@ Use Cloudflare / Colab tunnel to access the app in browser
 All outputs are saved inside:
 output/
 
-
-##✅ Milestone Completion Status
+✅ Milestone Completion Status
 -
 | Milestone | Description                       | Status      |
 | --------- | --------------------------------- | ----------- |
@@ -129,7 +128,7 @@ output/
 | M3        | Web App & System Integration      | ✅ Completed |
 
 
-###📝 Notes for Evaluation 
+📝 Notes for Evaluation 
 -
 1.Backend currently supports placeholder inference
 2.Architecture is modular and production-ready
