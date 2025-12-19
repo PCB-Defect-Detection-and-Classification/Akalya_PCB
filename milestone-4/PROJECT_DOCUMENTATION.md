@@ -172,36 +172,39 @@ Milestone 1: Dataset Preparation & CV Pipeline
 Dataset alignment, subtraction, thresholding, ROI extraction
 
 Deliverables: Processed images, defect masks, ROI crops
--
+
 Metrics: Alignment accuracy 100%, defect extraction 3–12 per image
--
+
+
 
 Milestone 2: Model Training & Evaluation
 -
 CNN training with EfficientNet, validation & confusion matrix
 
 Deliverables: Trained model, accuracy metrics (96% validation)
--
+
 Metrics: High precision & recall, minimal misclassification
--
+
+
 
 Milestone 3: Web App & System Integration
 -
 Streamlit frontend + modular backend pipeline
 
 Deliverables: Interactive app with defect visualization
--
+
 Metrics: Responsive UI, accurate defect detection, export-ready
--
+
 
 Milestone 4: Finalization & Delivery
 -
 Export results, optimize processing, final documentation
 
 Deliverables: Final web app, annotated images, CSV logs, PDF report
--
+
 Metrics: Fully functional system, ready for demonstration
--
+
+
 
 Evaluation Metrics
 -
@@ -247,6 +250,7 @@ Usage Guide
 1.Mount Google Drive (for Colab):
 
 from google.colab import drive
+
 drive.mount('/content/drive')
 
 
@@ -262,19 +266,20 @@ drive.mount('/content/drive')
 
 4.Upload PCB image, adjust confidence, run inspection
 
+
 5.View annotated output and download CSV/image
 
 
 Future Enhancements
 -
 
-Real-time PCB inspection using camera input
+1)Real-time PCB inspection using camera input
 
-Industrial deployment with higher resolution support
+2)Industrial deployment with higher resolution support
 
-Semi-supervised learning for unannotated defects
+3)Semi-supervised learning for unannotated defects
 
-Expanded defect categories and multi-board inspection
+4)Expanded defect categories and multi-board inspection
 
 
 Author
