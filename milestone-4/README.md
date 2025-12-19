@@ -85,8 +85,8 @@ milestone-4/
 
 ---
 
-## 🚀 How to Run in Google Colab
-
+ 🚀 How to Run in Google Colab
+-
 1️⃣ Mount your Google Drive:
 from google.colab import drive
 drive.mount('/content/drive')
@@ -99,7 +99,7 @@ drive.mount('/content/drive')
 
 
 
-##📝 Usage Guide :
+📝 Usage Guide :
 ---
 1.Upload a PCB image via the sidebar
 
@@ -116,13 +116,13 @@ drive.mount('/content/drive')
 📄 CSV defect log
 
 
-##⚠️ Notes
+⚠️ Notes
 --
 Ensure models/pcb_model.keras exists sample_images/template & sample_images/test must contain images
 output/ folder will auto-create for storing results
 
 
-##👩‍💻 Author
+👩‍💻 Author
 --
 Akalya S.
 SASTRA University
