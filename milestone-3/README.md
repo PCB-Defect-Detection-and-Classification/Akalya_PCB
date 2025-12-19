@@ -97,7 +97,7 @@ Always use **full PCB images** for correct alignment and inspection.
 ## 🚀 How to Run in Google Colab
 
 ### 1️⃣ Install Dependencies
-```bash
+bash
 pip install -r requirements.txt
 
 ### 2️⃣ Run Streamlit App
