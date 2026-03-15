@@ -45,12 +45,11 @@ st.success("✅ Model loaded successfully")
 st.sidebar.header("⚙️ Inspection Settings")
 confidence = st.sidebar.slider(
     "Confidence Threshold (%)",
-    min_value=30,
+    min_value=50,
     max_value=100,
-    value=50,
+    value=85,
     step=5
 )
-
 # ---------------- IMAGE UPLOAD ----------------
 uploaded_file = st.file_uploader(
     "📤 Upload PCB Image",
