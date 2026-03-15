@@ -1,4 +1,3 @@
-
 import os
 import streamlit as st
 import numpy as np
@@ -16,55 +15,18 @@ st.set_page_config(page_title="PCB Defect Inspector", page_icon="🔬", layout="
 # --- CUSTOM CSS ---
 st.markdown('''
     <style>
-    .metric-card {
-        background-color: #e3f2fd;
-        padding: 20px;
-        border-radius: 12px;
-        text-align: center;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .stButton>button {
-        width: 100%;
-        background-color: #1976d2;
-        color: white;
-        font-weight: bold;
-    }
-    .stProgress>div>div>div>div {
-        background-color: #1976d2;
-    }
+    .metric-card { background-color: #e3f2fd; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    .stButton>button { width: 100%; background-color: #1976d2; color: white; font-weight: bold; }
+    .stProgress>div>div>div>div { background-color: #1976d2; }
     </style>
 ''', unsafe_allow_html=True)
 
 # --- PDF GENERATION ---
-class PDFReport(FPDF):
-    def header(self):
-        self.set_font('Arial', 'B', 16)
-        self.cell(0, 10, 'PCB Defect Inspection Report', 0, 1, 'C')
-        self.set_font('Arial', 'I', 10)
-        self.cell(0, 10, f'Generated: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}', 0, 1, 'C')
-        self.ln(5)
-
-    def footer(self):
-        self.set_y(-15)
-        self.set_font('Arial', 'I', 8)
-        self.cell(0, 10, f'Page {self.page_no()}', 0, 0, 'C')
-
-
 def generate_pdf(annotated_img, defects, health_score):
-    import os
-    from PIL import Image
-    from fpdf import FPDF
-    import datetime
-
-    # --- Ensure output folder exists ---
-    output_folder = "/content/drive/MyDrive/Akalya_PCB/milestone-3/output"
-    os.makedirs(output_folder, exist_ok=True)
-
-    # --- Temp image path ---
-    temp_img_path = os.path.join(output_folder, "temp_report_img.jpg")
+    os.makedirs(config.OUTPUT_DIR, exist_ok=True)
+    temp_img_path = os.path.join(config.OUTPUT_DIR, "temp_report_img.jpg")
     Image.fromarray(annotated_img).save(temp_img_path)
 
-    # --- PDF class ---
     class PDFReport(FPDF):
         def header(self):
             self.set_font('Arial', 'B', 16)
@@ -72,13 +34,11 @@ def generate_pdf(annotated_img, defects, health_score):
             self.set_font('Arial', 'I', 10)
             self.cell(0, 10, f'Generated: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}', 0, 1, 'C')
             self.ln(5)
-
         def footer(self):
             self.set_y(-15)
             self.set_font('Arial', 'I', 8)
             self.cell(0, 10, f'Page {self.page_no()}', 0, 0, 'C')
 
-    # --- Generate PDF ---
     pdf = PDFReport()
     pdf.add_page()
     pdf.set_font('Arial', 'B', 12)
@@ -88,7 +48,6 @@ def generate_pdf(annotated_img, defects, health_score):
     pdf.cell(60, 10, f'Defects Found: {len(defects)}', 1)
     pdf.cell(60, 10, f'Model: EfficientNetB0', 1)
     pdf.ln(15)
-
     pdf.image(temp_img_path, x=10, w=190)
     pdf.ln(5)
 
@@ -106,7 +65,6 @@ def generate_pdf(annotated_img, defects, health_score):
         pdf.cell(60, 10, 'Flagged', 1, 1, 'C')
 
     return pdf.output(dest='S').encode('latin-1')
-
 
 
 # --- HEADER ---
