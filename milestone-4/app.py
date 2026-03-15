@@ -12,9 +12,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BACKEND_DIR = os.path.join(BASE_DIR, "backend")
 if BACKEND_DIR not in sys.path:
     sys.path.append(BACKEND_DIR)
-
-from inspector import inspect_pcb, load_model
-from exporter import export_results
+from backend.inspector import inspect_pcb, load_model
+from backend.exporter import export_results
 
 # ---------------- PATHS ----------------
 MODEL_PATH = os.path.join(BASE_DIR, "models", "pcb_model.keras")
