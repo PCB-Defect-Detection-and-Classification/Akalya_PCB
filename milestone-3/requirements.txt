@@ -5,3 +5,4 @@ Pillow
 matplotlib
 fpdf
 streamlit-image-comparison
+tensorflow
