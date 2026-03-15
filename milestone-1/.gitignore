@@ -1,4 +1,3 @@
-
 # -------------------------------
 # Ignore full datasets
 # -------------------------------
@@ -7,8 +6,10 @@ datasets/
 data/
 *.zip
 
-# Allow only small sample images
-!PCB_DATASET/processed/samples/
+# Allow only small sample images if needed
+!PCB_DATASET/PCB_DATASET/processed/
+!PCB_DATASET/PCB_DATASET/processed/samples/
+!PCB_DATASET/PCB_DATASET/processed/samples/*
 
 # -------------------------------
 # Python cache files
@@ -21,8 +22,8 @@ __pycache__/
 # -------------------------------
 # Google Colab / Jupyter
 # -------------------------------
-*.ipynb_checkpoints
 .ipynb_checkpoints/
+*.ipynb_checkpoints
 .conda/
 cache/
 *.log
@@ -43,7 +44,6 @@ runs/
 # Temporary image outputs
 # -------------------------------
 processed/
-!processed/samples/
 
 # -------------------------------
 # OS-generated files
@@ -59,10 +59,3 @@ venv/
 .venv/
 *.swp
 *.tmp
-
-# Ignore all processed folders
-processed/*
-
-# BUT allow samples
-!processed/samples/
-!processed/samples/*
