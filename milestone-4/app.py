@@ -7,7 +7,7 @@ import os
 import sys
 
 # ---------------- ADD BACKEND TO PATH ----------------
-BASE_DIR = "/content/drive/MyDrive/Akalya_PCB/milestone-4"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BACKEND_DIR = os.path.join(BASE_DIR, "backend")
 if BACKEND_DIR not in sys.path:
     sys.path.append(BACKEND_DIR)
