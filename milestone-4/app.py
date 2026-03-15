@@ -1,10 +1,11 @@
-
-import streamlit as st
-import numpy as np
-from PIL import Image
-import time
 import os
 import sys
+import time
+import numpy as np
+import pandas as pd
+from PIL import Image
+import streamlit as st
+import cv2
 
 # ---------------- ADD BACKEND TO PATH ----------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -23,11 +24,17 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 # ---------------- STREAMLIT PAGE CONFIG ----------------
 st.set_page_config(
     page_title="PCB Defect Inspector | Milestone 4",
-    layout="centered"
+    layout="wide"
 )
 
-st.title("🧪 PCB Defect Inspector")
-st.caption("Milestone-4: Testing, Evaluation & Export")
+st.title("🧪 PCB Defect Inspector - Milestone 4")
+st.caption("Sliding Window PCB Inspection with Export")
+
+# ---------------- SIDEBAR ----------------
+st.sidebar.header("⚙️ Inspection Settings")
+confidence = st.sidebar.slider("Confidence Threshold (%)", 50, 100, 85, step=5)
+patch_size = st.sidebar.slider("Patch Size (px)", 64, 256, 128, step=32)
+stride = st.sidebar.slider("Stride (px)", 32, 128, 64, step=16)
 
 # ---------------- LOAD MODEL ----------------
 @st.cache_resource
@@ -41,25 +48,13 @@ with st.spinner("🔄 Loading CNN model..."):
     model = load_cnn_model()
 st.success("✅ Model loaded successfully")
 
-# ---------------- SIDEBAR ----------------
-st.sidebar.header("⚙️ Inspection Settings")
-confidence = st.sidebar.slider(
-    "Confidence Threshold (%)",
-    min_value=50,
-    max_value=100,
-    value=85,
-    step=5
-)
 # ---------------- IMAGE UPLOAD ----------------
-uploaded_file = st.file_uploader(
-    "📤 Upload PCB Image",
-    type=["jpg", "png", "jpeg"]
-)
+uploaded_file = st.file_uploader("📤 Upload PCB Image", type=["jpg", "png", "jpeg"])
 
-if uploaded_file is not None:
+if uploaded_file:
     image = Image.open(uploaded_file).convert("RGB")
     image_np = np.array(image)
-    st.image(image, caption="Uploaded PCB Image", use_container_width=True)
+    st.image(image_np, caption="Uploaded PCB Image", use_container_width=True)
 
     if st.button("🚀 Run Inspection"):
         with st.spinner("🔍 Inspecting PCB..."):
@@ -67,9 +62,14 @@ if uploaded_file is not None:
             annotated_img, defects = inspect_pcb(
                 image=image_np,
                 model=model,
-                confidence_thresh=confidence
+                confidence_thresh=confidence,
+                patch_size=patch_size,
+                stride=stride
             )
             end_time = time.time()
+
+        # ---------------- BOARD HEALTH SCORE ----------------
+        score = max(0, 100 - len(defects) * 15)
 
         # ---------------- EXPORT RESULTS ----------------
         img_path, csv_path = export_results(
@@ -79,36 +79,33 @@ if uploaded_file is not None:
         )
 
         # ---------------- DISPLAY RESULTS ----------------
-        st.subheader("📌 Inspection Output")
-        st.image(annotated_img, use_container_width=True)
-        st.success(f"⏱️ Inspection completed in {end_time - start_time:.2f} seconds")
+        tab1, tab2, tab3 = st.tabs(["🖼 Annotated PCB", "🧾 Defect Log", "📥 Downloads"])
 
-        if defects:
-            st.subheader("🧾 Detected Defects")
-            st.dataframe(defects, use_container_width=True)
-        else:
-            st.success("🎉 No defects detected. PCB is clean!")
+        with tab1:
+            st.image(annotated_img, use_container_width=True)
+            st.metric("Board Health Score", f"{score}/100")
+            st.metric("Total Defects Detected", len(defects))
+            st.success(f"⏱ Inspection completed in {end_time - start_time:.2f} seconds")
 
-        # ---------------- DOWNLOAD SECTION ----------------
-        st.divider()
-        st.subheader("📥 Download Results")
+        with tab2:
+            if defects:
+                st.dataframe(pd.DataFrame(defects), use_container_width=True)
+            else:
+                st.success("🎉 No defects detected. PCB is clean!")
 
-        with open(img_path, "rb") as f:
+        with tab3:
             st.download_button(
-                "🖼️ Download Annotated Image",
-                f,
+                label="🖼 Download Annotated Image",
+                data=open(img_path, "rb"),
                 file_name=os.path.basename(img_path),
                 mime="image/jpeg"
             )
-
-        with open(csv_path, "rb") as f:
             st.download_button(
-                "📄 Download Defect Log (CSV)",
-                f,
+                label="📄 Download Defect Log (CSV)",
+                data=open(csv_path, "rb"),
                 file_name=os.path.basename(csv_path),
                 mime="text/csv"
             )
 
 else:
     st.info("👆 Upload a PCB image to start inspection")
-
