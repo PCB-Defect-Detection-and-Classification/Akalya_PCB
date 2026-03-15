@@ -17,14 +17,12 @@ IMG_SIZE = (128, 128)
 
 # ---- MODEL LOADER ----
 def load_model(model_path):
-    """
-    Loads the TensorFlow/Keras model from given path
-    """
+    """Load Keras/TensorFlow model from path"""
     if not os.path.exists(model_path):
-        raise FileNotFoundError(f"Model file not found at {model_path}")
+        raise FileNotFoundError(f"Model not found at {model_path}")
     return tf.keras.models.load_model(model_path)
 
-# ---- MAIN INSPECTION FUNCTION ----
+# ---- INSPECTION FUNCTION ----
 def inspect_pcb(image, model, confidence_thresh=85, patch_size=128, stride=64):
     h, w, _ = image.shape
     annotated = image.copy()
@@ -55,7 +53,6 @@ def inspect_pcb(image, model, confidence_thresh=85, patch_size=128, stride=64):
                 defects.append({
                     "type": label,
                     "confidence": round(conf,2),
-                    "bbox":[x, y, x + patch_size, y + patch_size]
+                    "bbox": [x, y, x+patch_size, y+patch_size]
                 })
-
     return annotated, defects
